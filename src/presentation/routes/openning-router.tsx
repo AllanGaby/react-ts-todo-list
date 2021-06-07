@@ -1,11 +1,15 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
-import { HomePage } from '@/presentation/pages'
+import { ListTasksPage } from '@/presentation/pages'
 
-const OpennigRouter: React.FC = () => {
+export type OpennigRouterProps = {
+  listPage: typeof ListTasksPage
+}
+
+const OpennigRouter: React.FC<OpennigRouterProps> = ({ listPage }: OpennigRouterProps) => {
   return (
     <Switch>
-      <Route path="/" exact component={HomePage} />
+      <Route path="/" exact component={listPage} />
     </Switch>
   )
 }
