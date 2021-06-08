@@ -4,7 +4,7 @@ import { makeHttpClient, makeApiUrl } from '@/main/factories/common/http'
 
 export const makeListTasksUseCase = (): ListTasksUseCase => {
   return new RemoteListEntitiesUseCase<TaskModel>(
-    makeApiUrl('todo/list'),
+    makeApiUrl('todo/task/list'),
     makeHttpClient(),
     'Task'
   )

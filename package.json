@@ -54,6 +54,7 @@
     "indent": 4
   },
   "dependencies": {
+    "@unform/web": "^2.1.6",
     "axios": "^0.21.1",
     "faker": "^5.4.0",
     "react": "^17.0.1",
