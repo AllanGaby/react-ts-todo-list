@@ -34,9 +34,11 @@ export const ListTasksPage: React.FC<ListTasksPageProps> = ({ listTasksUseCase, 
 
   const handleSubmitTask = useCallback(async (data: CreateTaskDTO) => {
     try {
-      await createTaskUseCase.create(data)
-      const remoteTasks = await listTasksUseCase.list(undefined)
-      setTasks(remoteTasks)
+      const createdTask = await createTaskUseCase.create(data)
+      setTasks(oldTasks => [
+        ...oldTasks,
+        createdTask
+      ])
       formRef.current.reset()
     } catch (error) {
       window.alert(error)
@@ -45,9 +47,13 @@ export const ListTasksPage: React.FC<ListTasksPageProps> = ({ listTasksUseCase, 
 
   const handleConcludedTask = useCallback(async (taskId: string) => {
     try {
-      await changeTaskToConcludedUseCase.update(taskId, undefined)
-      const remoteTasks = await listTasksUseCase.list(undefined)
-      setTasks(remoteTasks)
+      const updatedTask = await changeTaskToConcludedUseCase.update(taskId)
+      setTasks(oldTasks => {
+        return [
+          ...oldTasks.filter(item => item.id !== updatedTask.id),
+          updatedTask
+        ]
+      })
     } catch (error) {
       window.alert(error)
     }
