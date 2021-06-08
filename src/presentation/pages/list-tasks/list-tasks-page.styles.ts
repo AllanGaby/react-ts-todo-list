@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components'
 import { Form } from '@unform/web'
+import { TaskState } from '@/domain/todo-list'
 
 export const ListTaskContainer = styled.main`
   display: flex;
@@ -48,9 +49,14 @@ export const TaskContainer = styled.section`
   display: flex;  
   width: 100%;
   flex-direction: column;
+  margin-top: 20px;
 `
 
-export const TaskItem = styled.div`
+type TaskItemProps = {
+  state: TaskState
+}
+
+export const TaskItem = styled.div<TaskItemProps>`
   padding: 10px;
   border-radius: 10px;
   border: 1px solid #292C35;
@@ -59,6 +65,10 @@ export const TaskItem = styled.div`
   cursor: pointer;
   display: flex;
   flex-direction: column;
+
+  form {
+    display: none;
+  }
 
   h1 {
     margin-bottom: 10px;
@@ -71,17 +81,38 @@ export const TaskItem = styled.div`
     margin-bottom: 10px;
   }
 
+  &:hover {
+    border: 1px solid white;
+    ${props =>
+      props.state === TaskState.concluded &&
+      css`
+        form {
+          display: block;
+        }
+      `}
+  }  
+
   button {
-    border: 8px;
+    border: 8px;    
     background-color: #dc3545;
     padding: 10px;
     cursor: pointer;
     border: unset;
-    transition: 0.5ms;    
+    transition: 0.5ms;  
+    border-radius: 8px;
 
     &:hover {
       opacity: 0.8;
     }
+
+    ${props =>
+      props.state === TaskState.pending
+      ? css`
+        background-color: #dc3545;
+      `
+      : css`
+        background-color: #0d6efd;
+      `}
   }
 `
 

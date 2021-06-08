@@ -1,3 +1,4 @@
+export * from './access-denied-error'
 export * from './conflict-on-create-entity-error'
 export * from './entity-not-found-error'
 export * from './unauthorized-error'
